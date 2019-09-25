@@ -1,0 +1,67 @@
+#! /usr/bin/env python3
+
+from glob import glob
+from os import remove
+from os.path import getmtime, isfile, splitext
+from sys import argv, exit
+from twitter import Api
+
+
+def missing_arguments():
+    if len(argv) < 5:
+        print('Missing arguments.')
+        print()
+
+        return True
+
+
+def too_many_arguments():
+    if len(argv) > 5:
+        print('Too many arguments.')
+        print()
+
+        return True
+
+
+def usage():
+    print('Usage:')
+    print('pic2tweet [api key] [api secret key] [access token] [access token secret]')
+
+
+def posting(status):
+    print(f'Posting "{status}"...', end='', flush=True)
+
+
+def posted(status):
+    print(f'\rPosted "{status}".')
+
+
+def list_files():
+    found = glob('*.jpg') + glob('*.gif') + glob('*.png')
+
+    files = list(filter(isfile, found))
+    files.sort(key=getmtime)
+
+    return files
+
+
+def strip_extension(filename):
+    return splitext(filename)[0]
+
+
+if __name__ == "__main__":
+    if missing_arguments() or too_many_arguments():
+        usage()
+        exit()
+
+    args = argv[1:5]
+    api = Api(*args)
+
+    for filename in list_files():
+        status = strip_extension(filename)
+
+        posting(status)
+        api.PostUpdate(status, filename)
+        posted(status)
+
+        remove(filename)
