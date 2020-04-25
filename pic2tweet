@@ -6,14 +6,12 @@ from os.path import getmtime, isfile, splitext
 from sys import argv, exit
 from twitter import Api
 
-
 def missing_arguments():
     if len(argv) < 5:
         print('Missing arguments.')
         print()
 
         return True
-
 
 def too_many_arguments():
     if len(argv) > 5:
@@ -22,19 +20,15 @@ def too_many_arguments():
 
         return True
 
-
 def usage():
     print('Usage:')
     print('pic2tweet [api key] [api secret key] [access token] [access token secret]')
 
-
 def posting(status):
     print(f'Posting "{status}"...', end='', flush=True)
 
-
 def posted(status):
     print(f'\rPosted "{status}".')
-
 
 def list_files():
     found = glob('*.jpg') + glob('*.gif') + glob('*.png')
@@ -44,10 +38,8 @@ def list_files():
 
     return files
 
-
 def strip_extension(filename):
     return splitext(filename)[0]
-
 
 if __name__ == "__main__":
     if missing_arguments() or too_many_arguments():
