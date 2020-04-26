@@ -2,7 +2,7 @@
 
 from glob import glob
 from os import remove
-from os.path import getmtime, isfile, splitext
+from os.path import getmtime, isfile
 from sys import exit
 from twitter import Api
 
@@ -43,10 +43,10 @@ def usage():
     print('pic2tweet [api key] [api secret key] [access token] [access token secret]')
 
 def posting(status):
-    print(f'Posting "{status}"...', end='', flush=True)
+    print(f'Posting {status}...', end='', flush=True)
 
 def posted(status):
-    print(f'\rPosted "{status}".')
+    print(f'\rPosted {status}.')
 
 def list_files():
     found = glob('*.jpg') + glob('*.gif') + glob('*.png')
@@ -61,17 +61,11 @@ def list_files():
 
     return files
 
-def strip_extension(filename):
-    return splitext(filename)[0]
-
 if __name__ == "__main__":
     api = Api(*twitter_config())
 
     for f in list_files():
-        status = strip_extension(f)
-
-        posting(status)
-        api.PostUpdate(status, f)
-        posted(status)
-
-        remove(filename)
+        posting(f)
+        api.PostUpdate('', f)
+        posted(f)
+        remove(f)
