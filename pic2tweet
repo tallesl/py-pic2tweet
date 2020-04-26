@@ -49,12 +49,12 @@ def posted(status):
     print(f'\rPosted {status}.')
 
 def list_files():
-    found = glob('*.jpg') + glob('*.gif') + glob('*.png')
+    found = glob('*.jpg') + glob('*.jpeg') + glob('*.gif') + glob('*.png')
 
     files = list(filter(isfile, found))
 
     if not files:
-        print('No jpg, gif or png files found.')
+        print('No .jpg, .jpeg, .gif or .png files found.')
         exit()
 
     files.sort(key=getmtime)
