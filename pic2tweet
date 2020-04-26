@@ -46,7 +46,7 @@ def posting(status):
     print(f'Posting {status}...', end='', flush=True)
 
 def posted(status):
-    print(f'\rPosted {status}.')
+    print(f'\rPosted  {status}.  ')
 
 def list_files():
     found = glob('*.jpg') + glob('*.jpeg') + glob('*.gif') + glob('*.png')
