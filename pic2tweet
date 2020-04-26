@@ -2,7 +2,7 @@
 
 from glob import glob
 from os import remove
-from os.path import getmtime, isfile
+from os.path import expanduser, getmtime, isfile
 from sys import exit
 from twitter import Api
 
@@ -22,7 +22,7 @@ def twitter_config():
     from configparser import ConfigParser
 
     config = ConfigParser()
-    config.read('~/.pic2tweet')
+    config.read(expanduser('~/.pic2tweet'))
 
     try:
         twitter_config = config['twitter']
