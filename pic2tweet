@@ -7,9 +7,7 @@ from sys import exit
 from twitter import Api
 
 config_error = '''
-Error while reading "~/.pic2tweet" configuration file.
-
-Make sure the file exists following the example below:
+Error while reading ".pic2tweet" configuration file. Make sure the file exists following the example below:
 
 [twitter]
 api_key = Q2jEkfuGcdN7KwHYNN7Jvje1Q
@@ -22,7 +20,7 @@ def twitter_config():
     from configparser import ConfigParser
 
     config = ConfigParser()
-    config.read(expanduser('~/.pic2tweet'))
+    config.read('.pic2tweet') or config.read(expanduser('~/.pic2tweet'))
 
     try:
         twitter_config = config['twitter']
